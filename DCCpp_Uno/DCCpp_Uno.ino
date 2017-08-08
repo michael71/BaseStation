@@ -271,9 +271,7 @@ void setup(){
     }
     // Now let's register the service we're offering (a web service) via Bonjour!
     // To do so, we call the addServiceRecord() method.
-    EthernetBonjour.addServiceRecord("Arduino DCC++ Server ._dccpp",
-                                  ETHERNET_PORT,
-                                  MDNSServiceTCP);
+    EthernetBonjour.addServiceRecord(MDNS_SERVICE_DCCPP, ETHERNET_PORT, MDNSServiceTCP);
 #endif
 
   #endif

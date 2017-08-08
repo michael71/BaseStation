@@ -5,6 +5,8 @@ COPYRIGHT (c) 2013-2016 Gregg E. Berman
 
 Part of DCC++ BASE STATION for the Arduino
 
+with optional MDNS/Bonjour support
+
 **********************************************************************/
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +67,7 @@ Part of DCC++ BASE STATION for the Arduino
 
 #define USE_MDNS
 #define MDNS_NAME    "dccpp"      // .local will be added
-#define MDNS_SERVICE "_dccpp"     // ._tcp will be added
+#define MDNS_SERVICE_DCCPP "Arduino DCC++ Server ._dccpp"     // ._tcp will be added
 
 /////////////////////////////////////////////////////////////////////////////////////
 
