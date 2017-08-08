@@ -33,5 +33,10 @@ The Master branch contains all of the Base Station functionality showed in the D
 
 Since these modules are very layout-specififc, they are not included in the Master branch.  However, they are included in the Development branch.  Please feel free to download and copy any relevant code to customize your own version of DCC++ Base Station.
 
+Bonjour Support
+------------------
+
+MB, August 2017: added support for Bonjour (only with EthernetShield v2). The BaseStation can be reached via the name "dccpp.local" and registers a service record of type "_dccpp._tcp"
+
 -December 27, 2015
 

@@ -185,6 +185,8 @@ void showConfiguration();
 #if COMM_TYPE == 1
   byte mac[] =  MAC_ADDRESS;                                // Create MAC address (to be used for DHCP when initializing server)
   EthernetServer INTERFACE(ETHERNET_PORT);                  // Create and instance of an EnternetServer
+  
+  
 #endif
 
 // NEXT DECLARE GLOBAL OBJECTS TO PROCESS AND STORE DCC PACKETS AND MONITOR TRACK CURRENTS.
@@ -201,7 +203,9 @@ CurrentMonitor progMonitor(CURRENT_MONITOR_PIN_PROG,"<p3>");  // create monitor 
 ///////////////////////////////////////////////////////////////////////////////
 
 void loop(){
-  
+#if (COMM_INTERFACE == 2) && defined(USE_MDNS)
+  EthernetBonjour.run();
+#endif  
   SerialCommand::process();              // check for, and process, and new serial commands
   
   if(CurrentMonitor::checkTime()){      // if sufficient time has elapsed since last update, check current draw on Main and Program Tracks 
@@ -210,6 +214,8 @@ void loop(){
   }
 
   Sensor::check();    // check sensors for activate/de-activate
+
+
   
 } // loop
 
@@ -253,6 +259,23 @@ void setup(){
       Ethernet.begin(mac);                      // Start networking using DHCP to get an IP Address
     #endif
     INTERFACE.begin();
+
+#if (COMM_INTERFACE == 2) && defined(USE_MDNS)
+    if (!EthernetBonjour.begin(MDNS_NAME)) {
+       Serial.println("\n<iFailed to start Bonjour!> stopping");
+       while(1);
+    } else {
+      Serial.print("\n<iStarted bonjour: \"");
+      Serial.print(MDNS_NAME);
+      Serial.println(".local\" is my bonjour name>");
+    }
+    // Now let's register the service we're offering (a web service) via Bonjour!
+    // To do so, we call the addServiceRecord() method.
+    EthernetBonjour.addServiceRecord("Arduino DCC++ Server ._dccpp",
+                                  ETHERNET_PORT,
+                                  MDNSServiceTCP);
+#endif
+
   #endif
              
   SerialCommand::init(&mainRegs, &progRegs, &mainMonitor);   // create structure to read and parse commands from serial line
