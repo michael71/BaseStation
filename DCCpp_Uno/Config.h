@@ -40,7 +40,7 @@ with optional MDNS/Bonjour support
 // DEFINE STATIC IP ADDRESS *OR* COMMENT OUT TO USE DHCP
 //
 
-#define IP_ADDRESS { 192, 168, 178, 211 }
+//#define IP_ADDRESS { 192, 168, 178, 211 }
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
