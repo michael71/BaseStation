@@ -5,7 +5,11 @@ COPYRIGHT (c) 2013-2016 Gregg E. Berman
 
 Part of DCC++ BASE STATION for the Arduino
 
+Added info for use of UDP Multicast (Michael Blank)
+
 **********************************************************************/
+
+#define COMMA ,
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
@@ -31,7 +35,8 @@ Part of DCC++ BASE STATION for the Arduino
 //  2 = Arduino.org Ethernet/SD-Card Shield
 //  3 = Seeed Studio Ethernet/SD-Card Shield W5200
 
-#define COMM_INTERFACE   0
+#define COMM_INTERFACE   2
+#define COMM_TYPE  1          // network
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
@@ -63,6 +68,6 @@ Part of DCC++ BASE STATION for the Arduino
 
 #define LANBAHN_PORT   27027
 #define LANBAHN_GROUP  "239.200.201.250"
-#define LANBAHN_IP     IP_ADDRESS {239, 200, 201, 250 }
+#define LANBAHN_IP     { 239, 200, 201, 250 }
 
 /////////////////////////////////////////////////////////////////////////////////////

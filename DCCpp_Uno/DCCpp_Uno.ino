@@ -192,8 +192,16 @@ void showConfiguration();
 #if COMM_TYPE == 1
   byte mac[] =  MAC_ADDRESS;                                // Create MAC address (to be used for DHCP when initializing server)
   EthernetServer INTERFACE(ETHERNET_PORT);                  // Create and instance of an EnternetServer
-#endif
+#ifdef USE_M_UDP
+  // buffers for receiving and sending data
+  char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to hold incoming packet,
+  char  ReplyBuffer[] = "acknowledged";       // a string to send back
+  byte ipaddr[] = LANBAHN_IP;
 
+  // An EthernetUDP instance to let us send and receive packets over UDP
+  EthernetUDP Udp;
+#endif
+#endif
 // NEXT DECLARE GLOBAL OBJECTS TO PROCESS AND STORE DCC PACKETS AND MONITOR TRACK CURRENTS.
 // NOTE REGISTER LISTS MUST BE DECLARED WITH "VOLATILE" QUALIFIER TO ENSURE THEY ARE PROPERLY UPDATED BY INTERRUPT ROUTINES
 
@@ -254,15 +262,16 @@ void setup(){
   Serial.print(">");
 
   #if COMM_TYPE == 1    // Network used for communication with base station
-    #ifdef USE_M_UDP    // LANBAHN mode
-        Ethernet.beginMulticast(IPAddress(LANBAHN_IP), LANBAHN_PORT);  
-    #else   // standard mode
-      #ifdef IP_ADDRESS
+	#ifdef IP_ADDRESS
         Ethernet.begin(mac,IP_ADDRESS);           // Start networking using STATIC IP Address
       #else
         Ethernet.begin(mac);                      // Start networking using DHCP to get an IP Address
       #endif
       INTERFACE.begin();
+    #ifdef USE_M_UDP    // LANBAHN mode
+        Udp.beginMulticast(IPAddress(LANBAHN_IP), LANBAHN_PORT);
+    #else   // standard mode
+
     #endif
   #endif
              
