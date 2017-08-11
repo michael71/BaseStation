@@ -19,7 +19,7 @@ Part of DCC++ BASE STATION for the Arduino
 
   #elif COMM_INTERFACE == 2
     #define COMM_SHIELD_NAME      "ARDUINO-ORG ETHERNET-2 SHIELD (WIZNET 5500)"
-    #include <Ethernet2.h>        // https://github.com/arduino-org/Arduino
+    #include <Ethernet3.h>        // with multicast UDP support
 
   #elif COMM_INTERFACE == 3
     #define COMM_SHIELD_NAME      "SEEED STUDIO ETHERNET SHIELD (WIZNET 5200)"

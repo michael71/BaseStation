@@ -1,7 +1,14 @@
 /**********************************************************************
 
 DCC++ BASE STATION
+
+----------------------------------------------
+Multicast UDP Version (Lanbahn, Michael Blank)
+----------------------------------------------
+
+
 COPYRIGHT (c) 2013-2016 Gregg E. Berman
+COPYRIGHT (c) 2017 Michael Blank
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -246,13 +253,17 @@ void setup(){
   Serial.print(__TIME__);
   Serial.print(">");
 
-  #if COMM_TYPE == 1
-    #ifdef IP_ADDRESS
-      Ethernet.begin(mac,IP_ADDRESS);           // Start networking using STATIC IP Address
-    #else
-      Ethernet.begin(mac);                      // Start networking using DHCP to get an IP Address
+  #if COMM_TYPE == 1    // Network used for communication with base station
+    #ifdef USE_M_UDP    // LANBAHN mode
+        Ethernet.beginMulticast(IPAddress(LANBAHN_IP), LANBAHN_PORT);  
+    #else   // standard mode
+      #ifdef IP_ADDRESS
+        Ethernet.begin(mac,IP_ADDRESS);           // Start networking using STATIC IP Address
+      #else
+        Ethernet.begin(mac);                      // Start networking using DHCP to get an IP Address
+      #endif
+      INTERFACE.begin();
     #endif
-    INTERFACE.begin();
   #endif
              
   SerialCommand::init(&mainRegs, &progRegs, &mainMonitor);   // create structure to read and parse commands from serial line

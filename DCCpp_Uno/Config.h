@@ -55,4 +55,14 @@ Part of DCC++ BASE STATION for the Arduino
 #define MAC_ADDRESS {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF }
 
 /////////////////////////////////////////////////////////////////////////////////////
+//
+// DEFINE PORT AND ADDRESS ARRAY FOR LANBAHN (MULTICAST UDP COMM)
+//
 
+#define USE_M_UDP      // if defined, multicast UDP will be used for network comm.
+
+#define LANBAHN_PORT   27027
+#define LANBAHN_GROUP  "239.200.201.250"
+#define LANBAHN_IP     IP_ADDRESS {239, 200, 201, 250 }
+
+/////////////////////////////////////////////////////////////////////////////////////
